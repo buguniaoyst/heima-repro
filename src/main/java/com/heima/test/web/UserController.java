@@ -72,7 +72,8 @@ public class UserController {
             //如果学员信息中既有classid又有testid则根据testid安排测试
             if(StringUtils.isNotBlank(userList.get(0).getTestid()) && StringUtils.isNotBlank(userList.get(0).getClassid())){
                //重定向到测试页面
-                return new ModelAndView("redirect:/rest/stu_test_detail");
+                //return new ModelAndView("redirect:/rest/stu_test_detail");
+                return new ModelAndView("redirect:/rest/stu_home");
             }
 
 
