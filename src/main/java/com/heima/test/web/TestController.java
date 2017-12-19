@@ -199,8 +199,6 @@ public class TestController {
         }
         result.put("testSourceInfo", testSource);
         result.put("student", student);
-
-
         return result;
     }
 

@@ -121,10 +121,10 @@
                 var testId = data[i].testId;
 
 
-                 var td0 = $("<td align='center' >"+i+"</td>")
-                var td1 = $("<td align='center'>"+stuName+"</td>")
-                var td2 = $("<td align='center'>"+className+"</td>")
-                var td3 = $("<td align='center'>"+testName+"</td>")
+                 var td0 = $("<td align='center' >"+i+"</td>");
+                var td1 = $("<td align='center'>"+stuName+"</td>");
+                var td2 = $("<td align='center'>"+className+"</td>");
+                var td3 = $("<td align='center'>"+testName+"</td>");
                 var td4 = $("<td align='center'><a href="+"/rest/show_stu_test_detail?classId="+classId+"&testId="+testId+"&stuId="+stuId+"><input type='button' class='layui-btn' value='批改试卷'/></a></td>");
                 td0.appendTo(tr);
                 td1.appendTo(tr);

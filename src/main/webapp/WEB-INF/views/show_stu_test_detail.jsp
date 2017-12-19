@@ -116,7 +116,7 @@
                 "                <div class=\"layui-form-item layui-form-text\">\n" +
                 "                    <label class=\"layui-form-label\">请在写下你的做题思路（步骤）：</label>\n" +
                 "                    <div class=\"layui-input-block\">\n" +
-                "                        <textarea placeholder=\"请输入思路\"  class=\"layui-textarea silu\">"+answer.silu+"</textarea>\n" +
+                "                        <textarea placeholder=\"请输入思路\" style='height: 300px' class=\"layui-textarea silu\">"+answer.silu+"</textarea>\n" +
                 "                    </div>\n" +
                 "                </div>\n" +
                 "            </div>\n" +
@@ -125,7 +125,7 @@
                 "                <div class=\"layui-form-item layui-form-text\">\n" +
                 "                    <label class=\"layui-form-label\">请将你的答案粘贴到下边的文本域中：</label>\n" +
                 "                    <div class=\"layui-input-block\">\n" +
-                "                        <textarea placeholder=\"请输入答案\" class=\"layui-textarea answer\">"+answer.answer+"</textarea>\n" +
+                "                        <textarea placeholder=\"请输入答案\" style='height: 500px' class=\"layui-textarea answer\">"+answer.answer+"</textarea>\n" +
                 "                    </div>\n" +
                 "                </div>\n" +
                 "            </div>\n" +

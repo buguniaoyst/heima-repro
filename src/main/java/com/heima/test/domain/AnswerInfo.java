@@ -14,8 +14,9 @@ public class AnswerInfo {
     private Integer itemId;//题目id
     private  String silu;//做题思路
     private  String answer;//答案
-    private String testId;
-    private String stuName;
+    private  String testId;
+    private  String stuName;
+    private  Integer answerStatus = 0;//答案状态   未批阅-0，已批阅-1
 
     public String getStuName() {
         return stuName;
@@ -81,6 +82,14 @@ public class AnswerInfo {
         this.answer = answer;
     }
 
+    public Integer getAnswerStatus() {
+        return answerStatus;
+    }
+
+    public void setAnswerStatus(Integer answerStatus) {
+        this.answerStatus = answerStatus;
+    }
+
     @Override
     public String toString() {
         return "AnswerInfo{" +
@@ -92,6 +101,7 @@ public class AnswerInfo {
                 ", answer='" + answer + '\'' +
                 ", testId='" + testId + '\'' +
                 ", stuName='" + stuName + '\'' +
+                ", answerStatus=" + answerStatus +
                 '}';
     }
 }

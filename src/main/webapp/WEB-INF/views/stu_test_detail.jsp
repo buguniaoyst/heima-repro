@@ -156,8 +156,13 @@
                 $.post("${pageContext.request.contextPath}/rest/answer/addAnswerInfo",{answerInfo:itemAnswers},function (result) {
                     if(result.result){
                         //回显，把按钮禁用掉
-                        $("#submitTest").css("layui-btn-disabled");
+                        $("#submitTest").attr({"disabled":"disabled"});
+                        $("#submitTest").val("已交卷");
                         form.render();
+                        layer.alert('交卷成功，请等待助教老师批阅试卷！', {
+                            skin: 'layui-layer-molv' //样式类名
+                            ,closeBtn: 0
+                        });
                     }
 
                 });

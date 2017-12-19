@@ -32,6 +32,7 @@ public class AnswerInfoService extends  BaseService<AnswerInfo> {
                 for(AnswerInfo answer:answerInfoList){
                     answer.setTestId(loginUser.getTestid());
                     answer.setStuName(loginUser.getUsername());
+                    answer.setAnswerStatus(0);
                     save(answer);
                 }
             }
