@@ -123,7 +123,9 @@ public class UserController {
         }
         if("1".equals(user.getUsertype())){
             user.setUsertype("管理员");
-        }else{
+        }else if("2".equals(user.getUsertype())){
+            user.setUsertype("助教");
+        }else {
             user.setUsertype("普通用户");
         }
 

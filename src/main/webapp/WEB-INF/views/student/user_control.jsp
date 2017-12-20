@@ -36,7 +36,6 @@
                             <option value=""></option>
                             <option value="0">普通用户</option>
                             <option value="1">管理员</option>
-                            <option value="2">助教</option>
                         </select>
                     </div>
             </div>

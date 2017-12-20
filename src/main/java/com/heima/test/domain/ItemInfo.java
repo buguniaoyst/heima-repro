@@ -14,6 +14,8 @@ public class ItemInfo {
     private String itemStatus;
     private String itemContent;
     private  Double itemScore;
+    private String itemAnswer;
+    private String videoPath;
 
     public Integer getId() {
         return id;
@@ -71,6 +73,22 @@ public class ItemInfo {
         this.itemScore = itemScore;
     }
 
+    public String getItemAnswer() {
+        return itemAnswer;
+    }
+
+    public void setItemAnswer(String itemAnswer) {
+        this.itemAnswer = itemAnswer;
+    }
+
+    public String getVideoPath() {
+        return videoPath;
+    }
+
+    public void setVideoPath(String videoPath) {
+        this.videoPath = videoPath;
+    }
+
     @Override
     public String toString() {
         return "ItemInfo{" +
@@ -81,6 +99,8 @@ public class ItemInfo {
                 ", itemStatus='" + itemStatus + '\'' +
                 ", itemContent='" + itemContent + '\'' +
                 ", itemScore=" + itemScore +
+                ", itemAnswer='" + itemAnswer + '\'' +
+                ", videoPath='" + videoPath + '\'' +
                 '}';
     }
 }

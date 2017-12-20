@@ -26,7 +26,8 @@
             STU_ID STUID,
             SILU,
             ITEM_ID ITEMID,
-            STU_NAME STUNAME
+            STU_NAME STUNAME,
+            ANSWER_STATUS
         FROM
             answer_info
         WHERE

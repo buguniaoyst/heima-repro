@@ -5,7 +5,7 @@ var navs = [{
 	"children": [{
         "title": "账号管理",
         "icon": "&#xe612;",
-        "href": "/rest/user_control"
+        "href": "/rest/student/user_control"
     }]
 },{
 	"title": "考试管理",
@@ -18,7 +18,7 @@ var navs = [{
     }, {
         "title": "历史测试",
         "icon": "&#xe615;",
-        "href": "/rest/testctrl_list"
+        "href": "/rest/student/testctrl_scoreList"
     }]
 }, {
 	"title": "成绩管理",
@@ -28,7 +28,7 @@ var navs = [{
 	"children": [  {
 		"title": "我的成绩",
 		"icon": "&#xe60a;",
-		"href": "/rest/testctrl_scoreList"
+		"href": "/rest/student/testctrl_scoreList"
 	}]
 }, {
 	"title": "其他",
@@ -38,6 +38,6 @@ var navs = [{
 	"children": [{
 		"title": "通讯录",
 		"icon": "&#xe613;",
-		"href": "/rest/score_list"
+		"href": "/rest/student/score_list"
 	}]
 }];

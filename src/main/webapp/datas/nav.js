@@ -43,10 +43,14 @@ var navs = [{
 	"href": "",
 	"spread": false,
 	"children": [  {
-		"title": "历史成绩数据",
+		"title": "开班考试成绩",
 		"icon": "&#xe60a;",
 		"href": "/rest/testctrl_scoreList"
-	}]
+	},{
+        "title": "课后测试成绩",
+        "icon": "&#xe60a;",
+        "href": "/rest/testctrl_scoreList"
+    }]
 }, {
     "title": "带班经验沉淀",
     "icon": "&#xe642;",

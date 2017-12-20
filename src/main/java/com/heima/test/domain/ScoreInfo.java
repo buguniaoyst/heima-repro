@@ -11,6 +11,15 @@ public class ScoreInfo {
     private Integer stuId;
     private  Integer itemId;
     private Double itemScore;
+    private  Integer testId;
+
+    public Integer getTestId() {
+        return testId;
+    }
+
+    public void setTestId(Integer testId) {
+        this.testId = testId;
+    }
 
     public Integer getId() {
         return id;
@@ -51,6 +60,7 @@ public class ScoreInfo {
                 ", stuId=" + stuId +
                 ", itemId=" + itemId +
                 ", itemScore=" + itemScore +
+                ", testId=" + testId +
                 '}';
     }
 }

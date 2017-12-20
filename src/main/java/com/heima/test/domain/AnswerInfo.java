@@ -16,7 +16,16 @@ public class AnswerInfo {
     private  String answer;//答案
     private  String testId;
     private  String stuName;
-    private  Integer answerStatus = 0;//答案状态   未批阅-0，已批阅-1
+    private  Integer answerStatus;//答案状态   未批阅-0，已批阅-1
+    private Double score;
+
+    public Double getScore() {
+        return score;
+    }
+
+    public void setScore(Double score) {
+        this.score = score;
+    }
 
     public String getStuName() {
         return stuName;
@@ -102,6 +111,7 @@ public class AnswerInfo {
                 ", testId='" + testId + '\'' +
                 ", stuName='" + stuName + '\'' +
                 ", answerStatus=" + answerStatus +
+                ", score=" + score +
                 '}';
     }
 }

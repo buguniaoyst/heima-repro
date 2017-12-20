@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.heima.test.dao.TestRecordsMapper" >
+
+	<select id="findRecordsByExample" resultType="TestRecords">
+		select 
+			id,user_id,test_id,class_name,class_id,class_type,test_name,score
+		from 
+		 test_records where user_id=#{id}
+	
+	</select>
+	
+	
+	<select id="showDetailAll" resultType="Map">
+		<!-- select 
+			a.item_id,a.silu,a.answer,i.item_answer,i.item_content,i.item_score
+		from answer_info a LEFT JOIN item_info i ON a.item_id=i.id where a.stu_id=#{stuId} -->
+		
+		select 
+		
+			a.item_id as itemId,a.silu,a.answer,a.score,i.item_answer as itemAnswer,i.item_content as itemContent,i.item_score as itemScore,i.video_path as videoPath
+		
+		from answer_info a LEFT JOIN item_info i ON a.item_id=i.id where a.stu_id=#{stuId} and test_id=#{testId}
+	</select>
+
+</mapper>

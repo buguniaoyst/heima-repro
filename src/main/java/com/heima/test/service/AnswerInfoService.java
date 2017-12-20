@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.abel533.entity.Example;
 import com.heima.test.dao.AnswerInfoDao;
 import com.heima.test.domain.AnswerInfo;
+import com.heima.test.domain.ScoreInfo;
 import com.heima.test.domain.User;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,5 +77,15 @@ public class AnswerInfoService extends  BaseService<AnswerInfo> {
                 .andEqualTo("stuId", stuId);
         return this.getMapper().selectByExample(example);
 
+    }
+
+    public void updateAnswerInfoByStuIdAndItemId(ScoreInfo scinf) {
+        Example example = new Example(AnswerInfo.class);
+        example.createCriteria().andEqualTo("stuId", scinf.getStuId())
+                .andEqualTo("itemId", scinf.getItemId());
+        AnswerInfo answerInfo = new AnswerInfo();
+        answerInfo.setAnswerStatus(1);
+        answerInfo.setScore(scinf.getItemScore());
+        this.getMapper().updateByExampleSelective(answerInfo, example);
     }
 }

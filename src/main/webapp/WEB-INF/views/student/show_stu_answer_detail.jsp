@@ -20,21 +20,18 @@
         <div id="itemArea" style="margin-left: 10px">
 
         </div>
-        <div class="layui-form-item">
-            <input type="button" id="submitTest" class="layui-btn " value="提交，批改下一份">
-            <button class="layui-btn "   type="reset" >重置</button>
-        </div>
     </form>
 </div>
 
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 <script src="/lib/jquery-1.8.3.js"></script>
 <script>
-    layui.use(['laypage', 'layer','laydate','jquery','form','layedit'],function() {
+    layui.use(['laypage', 'layer','laydate','jquery','form','layedit','code'],function() {
         var laydate = layui.laydate;
         var laypage = layui.laypage;
         var form = layui.form();
         var $ = layui.jquery;
+         layui.code();
         var layedit = layui.layedit;
         layedit.build('codeItemSiLu'); //建立编辑器
         layedit.build('codeItemAnswer'); //建立编辑器
@@ -60,38 +57,21 @@
         $(function(){
             $.ajax({
                 type: "GET",
-                url: "${pageContext.request.contextPath}/rest/test/piyueTest?classId=${param.classId}&testId=${param.testId}&stuId=${param.stuId}",
+                url: "${pageContext.request.contextPath}/rest/records/showDetailAll?testId=${param.testId}&stuId=${param.stuId}",
                 //记得加双引号  T_T
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
-                success: function (data) {
-                    console.log(data);
-                    $("#stuTestName").html(data.testSourceInfo.testName);
-                    $("#stuTestName").attr("testId",data.testSourceInfo.id);
-                    $("#stuName").html(data.student.username);
-                    $("#stuName").attr("stuId",data.student.id);
-                    $("#stuName").attr("classId",data.student.classid);
-                    var answerInfos = data.answerInfoList;
+                success: function (answerInfos) {
+                    console.log(answerInfos);
+                    $("#stuTestName").html("${param.testName}");
+                    $("#stuName").html("${loginUser.username}");
                     if(answerInfos && answerInfos.length>0) {
                         var count = 1;
                         for(var i = 0;i<answerInfos.length;i++){
                             //根据itemId查询 item信息
                            var itemId =  answerInfos[i].itemId;
-                            $.ajax({
-                                type: "GET",
-                                url: "${pageContext.request.contextPath}/rest/item/getItemInfoByItemId?itemId="+itemId,
-                                //记得加双引号  T_T
-                                contentType: "application/json; charset=utf-8",
-                                dataType: "json",
-                                async:false,
-                                success: function (data) {
-                                    //创建编程题
-                                    if(data.itemType == '1') {
-                                        createCodeItem(data,count,answerInfos[i]);
-                                        count++;
-                                    }
-                                }
-                            });
+                            createCodeItem(count,answerInfos[i]);
+                            count++;
                         }
                     }
 
@@ -104,42 +84,42 @@
         })
 
         //创建编程题
-        function createCodeItem(items,count,answer) {
-            console.log(items);
-            var _div = $("<div class='itemAnswerArea'   id="+items.id+" >\n" +
+        function createCodeItem(count,answer) {
+            var _div = $("<div class='itemAnswerArea'   id="+answer.itemId+" >\n" +
                 "            <div class=\"site-title\">\n" +
-                "                <fieldset><legend><a >第"+count+"题("+items.itemScore+"分)</a></legend></fieldset>\n" +
+                "                <fieldset><legend><a >第"+count+"题(得分："+"<font color='red'>"+answer.score+"</font>"+"分)</a></legend></fieldset>\n" +
                 "            </div>\n" +
-                "            <div class=\"site-item\">\n" +
-                "               "+ items.itemContent+"\n" +
+                "            <div class=\"site-item\">\n" +"题目："+
+                "               "+ answer.itemContent+"\n" +"(总分："+answer.itemScore+")"+
                 "            </div>\n" +
                 "            <div>\n" +
                 "\n" +
                 "                <div class=\"layui-form-item layui-form-text\">\n" +
-                "                    <label class=\"layui-form-label\">请在写下你的做题思路（步骤）：</label>\n" +
+                "                    <label class=\"layui-form-label\">你的思路（步骤）：</label>\n" +
                 "                    <div class=\"layui-input-block\">\n" +
-                "                        <textarea placeholder=\"请输入思路\" style='height: 300px' class=\"layui-textarea silu\">"+answer.silu+"</textarea>\n" +
+                "                        <pre placeholder=\"请输入思路\" style='height:auto' class=\"layui-code silu\">"+answer.silu+"</pre>\n" +
                 "                    </div>\n" +
                 "                </div>\n" +
                 "            </div>\n" +
                 "            <div>\n" +
                 "\n" +
                 "                <div class=\"layui-form-item layui-form-text\">\n" +
-                "                    <label class=\"layui-form-label\">请将你的答案粘贴到下边的文本域中：</label>\n" +
+                "                    <label class=\"layui-form-label\">你的答案：</label>\n" +
                 "                    <div class=\"layui-input-block\">\n" +
-                "                        <textarea placeholder=\"请输入答案\" style='height: 500px' class=\"layui-textarea answer\">"+answer.answer+"</textarea>\n" +
+                "                        <pre  placeholder=\"请输入答案\" style='height:auto' class=\"layui-code answer\">"+answer.answer+"</pre>\n" +
                 "                    </div>\n" +
                 "                </div>\n" +
                 "            </div>\n" +
-                "        </div>")
-            var scoreSpan = $(" <div class=\"layui-form-item\">\n" +
-                "    <label class=\"layui-form-label\">综合评分：</label>\n" +
-                "    <div class=\"layui-input-inline\">\n" +
-                "      <input type=\"number\" name=\"itemScore\" lay-verify=\"required\" placeholder=\"请输入分值\" autocomplete=\"off\" class=\"layui-input\">\n" +
-                "    </div>\n" +
-                "  </div>")
+                "        </div>");
+            var scoreSpan = $("<img style='height:400px' src='${pageContext.request.contextPath}/images/item1.png'></img>");
+            var siluAnswerSite = $("<div class='site-item'>思路解析</div>");
+            var cankaoAnswer = $("<div class='site-item'>参考答案</div><div class='layui-form-item'><pre  style='height:auto' class='layui-code'>"+answer.itemAnswer+"</pre></div>");
             _div.appendTo($("#itemArea"));
+            siluAnswerSite.appendTo(_div);
             scoreSpan.appendTo(_div);
+            cankaoAnswer.appendTo(_div);
+            var videoDiv = $("<div><a id='showVideo' class='layui-btn' target='_blank' href="+answer.videoPath+">播放讲解视频</a></video></div>")
+            videoDiv.appendTo(_div);
         }
 
 
@@ -153,7 +133,6 @@
                 //封装答案信息
                 var stuId =  $("#stuName").attr("stuId");
                 if(_divs){
-                    var totalScore=0;
                     _divs.each(function () {
                         var itemId = $(this).attr('id');
                         var itemScore = $(_divs.get(0)).find('input')[0].value;
@@ -172,36 +151,14 @@
                         scoreInfo.itemScore=itemScore;
                         scoreInfo.testId = testId;
                         scoreInfos.push(scoreInfo);
-                        totalScore+=new Number(itemScore);
                         console.log(scoreInfos);
                     })
                 }
-
-                //封装testRecord信息
-                var testRescord = {};
-                testRescord.userId = stuId;
-                testRescord.testId = $("#stuTestName").attr("testId");
-                testRescord.classId = $("#stuName").attr("classId");
-                var classId = testRescord.classId;
-                if(classId && classId.substring(classId.length-1,classId.length) == '0'){
-                    testRescord.classType = 0;
-                }else{
-                    testRescord.classType = 1;
-                }
-                if(testRescord.classType == 0){
-                    testRescord.className = "上海黑马JavaEE基础"+testRescord.classId.substring(0,testRescord.classId.length-1)+"期";
-                }else{
-                    testRescord.className = "上海黑马JavaEE就业"+testRescord.classId.substring(0,testRescord.classId.length-1)+"期";
-                }
-                testRescord.testName =  $("#stuTestName").html();
-                testRescord.score = totalScore;
-
-                testRescord = JSON.stringify(testRescord);
                 console.log(scoreInfos);
               //  itemAnswersInfo = JSON.serialize(itemAnswersInfo);
                 scoreInfos = JSON.stringify(scoreInfos);
                 if(submitTestFlag){
-                    $.post("${pageContext.request.contextPath}/rest/score/submitScoreInfo",{scoreInfos:scoreInfos,testRecord:testRescord},function (result) {
+                    $.post("${pageContext.request.contextPath}/rest/score/submitScoreInfo",{scoreInfos:scoreInfos},function (result) {
                         if(result.result){
                             alert("批改成功");
                             var testName = $("#stuTestName").html();

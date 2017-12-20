@@ -20,7 +20,7 @@
 <body>
 <!-- 列表面板 -->
 <div class="layui-form-pane" style="margin-top: 15px;">
-    <form class="layui-form layui-form-pane" action="${pageContext.request.contextPath}/rest/item/addItem" method="post">
+    <form id="jvForm" class="layui-form layui-form-pane" action="${pageContext.request.contextPath}/rest/item/addItem" method="post">
 
        <%-- <div class="layui-form-item">
             <label class="layui-form-label">短输入框</label>
@@ -98,18 +98,44 @@
                 <input type="radio" name="itemStatus" value="0" title="禁用" >
             </div>
         </div>
+
            <div class="layui-form-item layui-input-inline" pane="">
-            <label class="layui-form-label">分值</label>
-            <div class="layui-input-block">
-                <input type="number" name="itemScore" class="layui-input">
-            </div>
-        </div>
-        <div class="layui-form-item layui-form-text">
+               <label class="layui-form-label">分值</label>
+               <div class="layui-input-block">
+                   <input type="number" name="itemScore" class="layui-input">
+               </div>
+           </div>
+           <!-- 视频上传 -->
+           <div class="layui-form-item layui-input-inline" pane="">
+               <label class="layui-form-label">视频上传 </label>
+               <div class="layui-input-block">
+                   <button class="layui-upload-button">
+                       选择文件<input type="file" name="mf" onchange="uploadPic()" />
+                   </button>
+
+                   <input type="hidden" name="videoPath" id="videoPath"/>
+               </div>
+           </div>
+
+           <div id="videoDiv" class="layui-form-item layui-input-inline " style="display:none">
+               <label class="layui-form-label"> <a id="showVideo" target="_blank" href="#">播放视频文件</a> </label>
+               <div class="layui-input-block">
+
+               </div>
+           </div>
+
+         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label">题干信息</label>
             <div class="layui-input-block">
                 <textarea  name="itemContent" placeholder="请输入题干信息" class="layui-textarea"></textarea>
             </div>
         </div>
+           <div class="layui-form-item layui-form-text">
+               <label class="layui-form-label">参考答案</label>
+               <div class="layui-input-block">
+                   <textarea  name="itemAnswer" placeholder="请输入参考答案" class="layui-textarea"></textarea>
+               </div>
+           </div>
         <div class="layui-form-item">
             <button class="layui-btn" lay-submit="" lay-filter="demo2">新增</button>
             <button class="layui-btn "   type="reset" >重置</button>
@@ -117,15 +143,32 @@
     </form>
 
 </div>
+<script src="${pageContext.request.contextPath }/lib/jquery.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath }/lib/jquery.ext.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath }/lib/jquery.form.js" type="text/javascript"></script>
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 <script>
-    layui.use(['laypage', 'layer','laydate','jquery','form'],function() {
+    layui.use(['laypage', 'layer','laydate','jquery','form','upload'],function() {
         var laydate = layui.laydate;
         var laypage = layui.laypage;
         var form = layui.form();
         var $ = layui.jquery;
-
+        layui.upload();
     });
+    function uploadPic(){
+        var options = {
+            url : "/rest/uploadFile.do",
+            type : "post",
+            dataType : "json",
+            success : function(data) {
+                //设置图片的在表单提交后的值
+                $("#videoPath").val(data.path);
+                $("#showVideo").attr("href",data.path);
+                $("#videoDiv")[0].style.display = "block";
+            }
+        }
+        $("#jvForm").ajaxSubmit(options);
+    }
 </script>
 </body>
 </html>

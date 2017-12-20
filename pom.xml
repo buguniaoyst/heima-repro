@@ -131,6 +131,11 @@
             <artifactId>commons-lang3</artifactId>
             <version>3.3.2</version>
         </dependency>
+        <dependency>
+            <groupId>com.fast-clent</groupId>
+            <artifactId>fast-dfs</artifactId>
+            <version>1.0.0</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

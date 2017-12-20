@@ -112,6 +112,7 @@
                 var stuId = data[i].stuId;
                 var classId = data[i].classId;
                 var classNo = classId.substring(0, classId.length - 1);
+                var answerStatus = data[i].answerStatus;
                 if(classId && '0' == classId.substring(classId.length-1,classId.length)){
                     className = "黑马基础班第" + classNo + "期";
                 }else{
@@ -125,7 +126,12 @@
                 var td1 = $("<td align='center'>"+stuName+"</td>");
                 var td2 = $("<td align='center'>"+className+"</td>");
                 var td3 = $("<td align='center'>"+testName+"</td>");
-                var td4 = $("<td align='center'><a href="+"/rest/show_stu_test_detail?classId="+classId+"&testId="+testId+"&stuId="+stuId+"><input type='button' class='layui-btn' value='批改试卷'/></a></td>");
+                var td4;
+                if(answerStatus == '0'){
+                    td4 = $("<td align='center'><a href="+"/rest/show_stu_test_detail?classId="+classId+"&testId="+testId+"&stuId="+stuId+"><input type='button' class='layui-btn' value='批改试卷'/></a></td>");
+                }else{
+                   td4 = $("<td align='center'><a href='#'><input type='button' class='layui-btn layui-btn-normal' value='已批阅'/></a></td>");
+                }
                 td0.appendTo(tr);
                 td1.appendTo(tr);
                 td2.appendTo(tr);
@@ -136,12 +142,6 @@
 
             return table;
         };
-
-
-
-
-
-
 
 
     });

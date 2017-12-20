@@ -19,6 +19,12 @@
 
 
 
+
+
+
+
+
+
             <div>
                <div class="site-title">
                    <fieldset><legend><a >第一题</a></legend></fieldset>
@@ -1703,7 +1709,7 @@
      </div>
 </body>
 <script >
-    layui.use('form',function () {
+    layui.use(['laypage', 'layer','laydate','jquery','form','layedit','code'],function() {
 //       var form = layui.form();
 //        //提交表单
 //        form.on('submit(wenjuan)',function(data){
@@ -1711,7 +1717,7 @@
 //            //location.href='index.html';
 //            return false;
 //        });
-
+        layui.code();
 
         function  addItem() {
             var aa = $("#itemId");
