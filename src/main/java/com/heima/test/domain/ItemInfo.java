@@ -16,6 +16,7 @@ public class ItemInfo {
     private  Double itemScore;
     private String itemAnswer;
     private String videoPath;
+    private String picPath;
 
     public Integer getId() {
         return id;
@@ -89,6 +90,14 @@ public class ItemInfo {
         this.videoPath = videoPath;
     }
 
+    public String getPicPath() {
+        return picPath;
+    }
+
+    public void setPicPath(String picPath) {
+        this.picPath = picPath;
+    }
+
     @Override
     public String toString() {
         return "ItemInfo{" +
@@ -101,6 +110,7 @@ public class ItemInfo {
                 ", itemScore=" + itemScore +
                 ", itemAnswer='" + itemAnswer + '\'' +
                 ", videoPath='" + videoPath + '\'' +
+                ", picPath='" + picPath + '\'' +
                 '}';
     }
 }

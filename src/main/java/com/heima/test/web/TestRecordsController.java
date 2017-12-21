@@ -5,6 +5,7 @@ import com.heima.test.service.*;
 import com.heima.test.utils.CommonUtils;
 import com.heima.test.utils.ScoreUtils;
 
+import com.sun.org.apache.bcel.internal.generic.RETURN;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -79,14 +80,26 @@ public class TestRecordsController {
 			return null;
 		}
     	
-//        TestInfo testInfo = new TestInfo();
-//        testInfo.setTestid(testCtrl.getTestId());
-//        List<TestInfo> testInfoList = testInfoService.queryListByExample(testInfo);
-//        Map<String, Object> resultMap = new HashMap<String, Object>();
-//        resultMap.put("pagesize", 50);
-//        resultMap.put("results", testInfoList);
-//        return resultMap;
+
     	return null;
+    }
+
+
+    @RequestMapping(value = "queryTestRecordGroupByClassIdAndTestId",method = RequestMethod.GET)
+    @ResponseBody
+	public Map<String, Object> queryTestRecordGroupByClassIdAndTestId() {
+		List<TestRecords> testRecordsList = testRecordsService.queryTestRecordGroupByClassIdAndTestId();
+        Map<String, Object> result = new HashMap<>();
+        result.put("pagesize", 20);
+        result.put("results", testRecordsList);
+        return  result;
+	}
+
+	@RequestMapping(value = "queryTestRecordsByClassIdAndTestId",method = RequestMethod.GET)
+    @ResponseBody
+	public List<Map> queryTestRecordsByClassIdAndTestId(TestRecords testRecords){
+        List<Map> result=  testRecordsService.queryTestRecordsByClassIdAndTestId(testRecords.getClassId(), testRecords.getTestId());
+        return result;
     }
 
 

@@ -22,8 +22,40 @@
 		select 
 		
 			a.item_id as itemId,a.silu,a.answer,a.score,i.item_answer as itemAnswer,i.item_content as itemContent,i.item_score as itemScore,i.video_path as videoPath
+			,i.pic_path as picPath
 		
 		from answer_info a LEFT JOIN item_info i ON a.item_id=i.id where a.stu_id=#{stuId} and test_id=#{testId}
 	</select>
+
+
+	<select id="queryTestRecordGroupByClassIdAndTestId" resultType="TestRecords">
+		SELECT
+		*
+		FROM
+			test_records
+		GROUP BY
+		class_id,
+		test_id
+		ORDER  BY
+		class_id
+	</select>
+
+
+    <select id="queryTestRecordsByClassIdAndTestId" resultType="Map">
+      SELECT
+	r.class_name className,
+	r.test_name testName,
+	r.score score,
+	u.username username
+    FROM
+        test_records r
+    INNER JOIN userinfo u ON r.user_id = u.id
+    WHERE
+        r.test_id = #{testId}
+    AND r.class_id = #{classId}
+    ORDER BY
+	r.score DESC;
+
+    </select>
 
 </mapper>

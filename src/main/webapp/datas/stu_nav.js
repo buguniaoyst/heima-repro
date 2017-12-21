@@ -3,7 +3,7 @@ var navs = [{
 	"icon": "&#xe614;",
 	"spread": true,
 	"children": [{
-        "title": "账号管理",
+        "title": "修改密码",
         "icon": "&#xe612;",
         "href": "/rest/student/user_control"
     }]
@@ -15,10 +15,6 @@ var navs = [{
         "title": "今日测试",
         "icon": "&#xe654;",
         "href": "/rest/stu_test_detail"
-    }, {
-        "title": "历史测试",
-        "icon": "&#xe615;",
-        "href": "/rest/student/testctrl_scoreList"
     }]
 }, {
 	"title": "成绩管理",

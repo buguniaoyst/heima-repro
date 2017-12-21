@@ -93,6 +93,8 @@ public class AnswerInfoController {
             TestSource testSource = testSourceService.getTestSourceById(Integer.valueOf(answerInfo.getTestId()));
             result.put("testSourceInfo",testSource);
         }
+        //根据classId和testId 查询testRecord
+
         result.put("results", answerInfoList);
         result.put("pagesize", 20);
         return  result;

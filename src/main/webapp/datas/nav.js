@@ -49,7 +49,7 @@ var navs = [{
 	},{
         "title": "课后测试成绩",
         "icon": "&#xe60a;",
-        "href": "/rest/testctrl_scoreList"
+        "href": "/rest/item_test_score_list"
     }]
 }, {
     "title": "带班经验沉淀",

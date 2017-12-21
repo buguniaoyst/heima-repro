@@ -17,19 +17,31 @@ import com.heima.test.utils.FastDFSTool;
 public class UploadController {
 	
 	
-	@RequestMapping(value="/uploadFile.do")
+	@RequestMapping(value="/uploadVideo.do")
 	@ResponseBody
-	public Map<String, String> uploadFile(MultipartFile mf) throws FileNotFoundException, IOException, Exception{
+	public Map<String, String> uploadVideo(MultipartFile mf) throws FileNotFoundException, IOException, Exception{
 		
 		// 将文件上传到分布式文件系统，并返回文件的存储路径及名称
 		String uploadFile = FastDFSTool.uploadFile(mf.getBytes(),
 				mf.getOriginalFilename());
 		// 返回json格式的字符串（图片的绝对网络存放地址）
 		Map<String, String> hashMap = new HashMap<String, String>();
-		hashMap.put("path", Constants.FDFS_SERVER + uploadFile);
+		hashMap.put("videoPath", Constants.FDFS_SERVER + uploadFile);
 		return hashMap;
 	}
-	
+
+	@RequestMapping(value="/uploadPic.do")
+	@ResponseBody
+	public Map<String, String> uploadPic(MultipartFile mp) throws FileNotFoundException, IOException, Exception{
+
+		// 将文件上传到分布式文件系统，并返回文件的存储路径及名称
+		String uploadFile = FastDFSTool.uploadFile(mp.getBytes(),
+                mp.getOriginalFilename());
+		// 返回json格式的字符串（图片的绝对网络存放地址）
+		Map<String, String> hashMap = new HashMap<String, String>();
+		hashMap.put("picPath", Constants.FDFS_SERVER + uploadFile);
+		return hashMap;
+	}
 	
 	
 	

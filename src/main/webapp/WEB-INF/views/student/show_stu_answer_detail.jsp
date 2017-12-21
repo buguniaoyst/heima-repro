@@ -89,13 +89,13 @@
                 "            <div class=\"site-title\">\n" +
                 "                <fieldset><legend><a >第"+count+"题(得分："+"<font color='red'>"+answer.score+"</font>"+"分)</a></legend></fieldset>\n" +
                 "            </div>\n" +
-                "            <div class=\"site-item\">\n" +"题目："+
+                "            <div class=\"site-item\" style='font-size: large'>\n" +"题目："+
                 "               "+ answer.itemContent+"\n" +"(总分："+answer.itemScore+")"+
                 "            </div>\n" +
                 "            <div>\n" +
                 "\n" +
                 "                <div class=\"layui-form-item layui-form-text\">\n" +
-                "                    <label class=\"layui-form-label\">你的思路（步骤）：</label>\n" +
+                "                    <label class=\"layui-form-label\" style='color: #1aa094;font-size: large'>你的思路（步骤）：</label>\n" +
                 "                    <div class=\"layui-input-block\">\n" +
                 "                        <pre placeholder=\"请输入思路\" style='height:auto' class=\"layui-code silu\">"+answer.silu+"</pre>\n" +
                 "                    </div>\n" +
@@ -104,16 +104,16 @@
                 "            <div>\n" +
                 "\n" +
                 "                <div class=\"layui-form-item layui-form-text\">\n" +
-                "                    <label class=\"layui-form-label\">你的答案：</label>\n" +
+                "                    <label class=\"layui-form-label\" style='color: #1aa094;font-size: large'>你的答案：</label>\n" +
                 "                    <div class=\"layui-input-block\">\n" +
                 "                        <pre  placeholder=\"请输入答案\" style='height:auto' class=\"layui-code answer\">"+answer.answer+"</pre>\n" +
                 "                    </div>\n" +
                 "                </div>\n" +
                 "            </div>\n" +
                 "        </div>");
-            var scoreSpan = $("<img style='height:400px' src='${pageContext.request.contextPath}/images/item1.png'></img>");
-            var siluAnswerSite = $("<div class='site-item'>思路解析</div>");
-            var cankaoAnswer = $("<div class='site-item'>参考答案</div><div class='layui-form-item'><pre  style='height:auto' class='layui-code'>"+answer.itemAnswer+"</pre></div>");
+            var scoreSpan = $("<img style='height:400px' src="+answer.picPath+"></img>");
+            var siluAnswerSite = $("<div class='site-item' style='color: red;font-size: large'>思路解析</div>");
+            var cankaoAnswer = $("<div class='site-item' style='color: red;font-size: large'>参考答案</div><div class='layui-form-item'><pre  style='height:auto' class='layui-code'><font color='red'>"+answer.itemAnswer+"</font></pre></div>");
             _div.appendTo($("#itemArea"));
             siluAnswerSite.appendTo(_div);
             scoreSpan.appendTo(_div);

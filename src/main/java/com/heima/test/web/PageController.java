@@ -16,13 +16,15 @@ public class PageController {
     @RequestMapping("{pageName}")
     public String toPage(@PathVariable("pageName") String pageName, HttpSession session, HttpServletRequest request) {
 
-
+        if("index".equals(pageName)){
             User user = (User) session.getAttribute("loginUser");
             if(null != user && "管理员".equals(user.getUsertype())){
                 return "index";
             }else if(user == null){
                 return "login";
             }
+        }
+
 
         return pageName;
     }

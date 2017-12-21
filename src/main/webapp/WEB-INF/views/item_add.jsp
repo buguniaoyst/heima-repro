@@ -110,19 +110,32 @@
                <label class="layui-form-label">视频上传 </label>
                <div class="layui-input-block">
                    <button class="layui-upload-button">
-                       选择文件<input type="file" name="mf" onchange="uploadPic()" />
+                       选择视频<input type="file" name="mf" onchange="uploadVideo()" />
                    </button>
-
                    <input type="hidden" name="videoPath" id="videoPath"/>
                </div>
            </div>
-
            <div id="videoDiv" class="layui-form-item layui-input-inline " style="display:none">
                <label class="layui-form-label"> <a id="showVideo" target="_blank" href="#">播放视频文件</a> </label>
                <div class="layui-input-block">
 
                </div>
            </div>
+           <div class="layui-form-item">
+               <label class="layui-form-label">答案解析</label>
+               <div class="layui-input-block layui-inline">
+                   <button class="layui-upload-button">
+                       选择图片<input type="file" name="mp" onchange="uploadPic()" />
+                   </button>
+                   <input type="hidden" name="picPath" id="picPath"/>
+               </div>
+               <div id="picDiv" class="layui-input-block layui-inline" style="display:none">
+                   <img src="#" id="showPic" style="height: 200px;width: 200px">
+               </div>
+           </div>
+
+
+
 
          <div class="layui-form-item layui-form-text">
             <label class="layui-form-label">题干信息</label>
@@ -155,16 +168,31 @@
         var $ = layui.jquery;
         layui.upload();
     });
-    function uploadPic(){
+    function uploadVideo(){
         var options = {
-            url : "/rest/uploadFile.do",
+            url : "/rest/uploadVideo.do",
             type : "post",
             dataType : "json",
             success : function(data) {
                 //设置图片的在表单提交后的值
-                $("#videoPath").val(data.path);
-                $("#showVideo").attr("href",data.path);
+                $("#videoPath").val(data.videoPath);
+                $("#showVideo").attr("href",data.videoPath);
                 $("#videoDiv")[0].style.display = "block";
+            }
+        }
+        $("#jvForm").ajaxSubmit(options);
+    }
+
+    function uploadPic(){
+        var options = {
+            url : "/rest/uploadPic.do",
+            type : "post",
+            dataType : "json",
+            success : function(data) {
+                //设置图片的在表单提交后的值
+                $("#picPath").val(data.picPath);
+                $("#showPic").attr("src",data.picPath);
+                $("#picDiv")[0].style.display = "block";
             }
         }
         $("#jvForm").ajaxSubmit(options);

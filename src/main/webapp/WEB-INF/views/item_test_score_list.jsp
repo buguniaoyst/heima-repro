@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <head>
-    <title>组卷管理</title>
+    <title>测试成绩管理</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/lib/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/global.css" media="all">
@@ -20,53 +20,67 @@
 <body>
 <!-- 列表面板 -->
 <div class="layui-form-pane" style="margin-top: 15px;">
-    <form class="layui-form layui-form-pane" action="#" method="post">
-
-
-        <div>
-            <table class="layui-table" style="height: 58px;" lay-even="" lay-skin="row" id="personTable">
-                <colgroup>
-                    <col width="40">
-                    <col width="200">
-                    <col width="400">
-                    <col width="400">
-                    <col width="200">
-                </colgroup>
-                <thead>
-                <tr>
-                    <th align="center"style="padding: 0;text-align: center">序号</th>
-                    <th align="center">学生姓名</th>
-                    <th align="center">班级名称</th>
-                    <th align="center">试卷名称</th>
-                    <th align="center">批改状态</th>
-                </tr>
-                </thead>
-                <tbody id="tbody">
-                </tbody>
-            </table>
-        </div>
-        <div id="demo5" align="center"></div>
-
-    </form>
-
+    <!-- 列表操作按钮组 -->
+   <%-- <div class="layui-form-item">
+        <button id="exportbtn" class="layui-btn layui-btn-warm" lay-filter="exportpro">导出数据</button>&nbsp;&nbsp;&nbsp;&nbsp;
+    </div>--%>
+    <div class="layui-form" >
+        <table class="layui-table" style="height: 58px;" lay-even="" lay-skin="row" id="personTable">
+            <colgroup>
+                <col width="600">
+                <col width="400">
+                <col width="600">
+                <col width="400">
+            </colgroup>
+            <thead>
+            <tr>
+                <th align="center"style="padding: 0;text-align: center">班级名称</th>
+                <th align="center">班级类型</th>
+                <th align="center">试卷名称</th>
+                <th align="center">查看详情</th>
+            </tr>
+            </thead>
+            <tbody id="tbody">
+            </tbody>
+        </table>
+    </div>
+    <div id="demo5" align="center"></div>
+    <!-- <div id="demo7" align="center"></div> -->
 </div>
-<script src="${pageContext.request.contextPath}/js/jquery-1.9.1.js"></script>
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+<script src="/lib/jquery-1.8.3.js"></script>
 <script>
     layui.use(['laypage', 'layer','laydate','jquery','form'],function() {
         var laydate = layui.laydate;
         var laypage = layui.laypage;
         var form = layui.form();
         var $ = layui.jquery;
+        var start = {
+            max : '2099-06-16 23:59:59',
+            istoday : false,
+            choose : function(datas) {
+                end.min = datas; //开始日选好后，重置结束日的最小日期
+                end.start = datas //将结束日的初始值设定为开始日
+            }
+        };
+
+        var end = {
+            max : '2099-06-16 23:59:59',
+            istoday : false,
+            choose : function(datas) {
+                start.max = datas; //结束日选好后，重置开始日的最大日期
+            }
+        };
 
 
-        //创建itemList的列表table
         //页面初始化的时候加载分页数据
         $(function(){
-            //根据classId和testId查询这个班级这套试卷的成绩;
+            //alert("页面初始化了.......");
+
             $.ajax({
-                type: "POST",
-                url: "${pageContext.request.contextPath}/rest/answer/queryClassAnswerListByClassIdAndTestId?classId=${param.classId}&testId=${param.testId}",
+                type: "GET",
+                url: "${pageContext.request.contextPath}/rest/records/queryTestRecordGroupByClassIdAndTestId",
+                //记得加双引号  T_T
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (data) {
@@ -90,6 +104,8 @@
                     alert(err + "err");
                 }
             });
+
+
         })
 
         //分页数据
@@ -102,49 +118,55 @@
             var str = '', last = curr * nums - 1;
             last = last >= data.length ? (data.length - 1) : last;
             var table = $("#tbody");
-            var testName = "${param.testName}";
             $("#tbody tr").empty();//每次进来先清空table
             for (var i = (curr * nums - nums); i <= last; i++) {
                 // str += '<li>' + data[i] + '</li>';
                 var tr=$("<tr></tr>");
-                var className;
-                var stuName = data[i].stuName;
-                var stuId = data[i].stuId;
-                var classId = data[i].classId;
-                var classNo = classId.substring(0, classId.length - 1);
-                var answerStatus = data[i].answerStatus;
-                if(classId && '0' == classId.substring(classId.length-1,classId.length)){
-                    className = "黑马基础班第" + classNo + "期";
+                var className = data[i].className;
+                var classType;
+                var testName = data[i].testName;
+                if(data[i].classType=='0'){
+                    classType = '基础班';
                 }else{
-                    className = "黑马就业班第" + classNo + "期";
+                    classType = '就业班';
                 }
 
-                var testId = data[i].testId;
-
-
-                 var td0 = $("<td align='center' >"+i+"</td>");
-                var td1 = $("<td align='center'>"+stuName+"</td>");
-                var td2 = $("<td align='center'>"+className+"</td>");
+                var td1 = $("<td align='center'>"+className+"</td>")
+                var td2 = $("<td align='center'>"+classType+"</td>");
                 var td3 = $("<td align='center'>"+testName+"</td>");
-                var td4;
-                if(answerStatus == '0'){
-                    td4 = $("<td align='center'><a href="+"/rest/show_stu_test_detail?classId="+classId+"&testId="+testId+"&stuId="+stuId+"><input type='button' class='layui-btn' value='批改试卷'/></a></td>");
-                }else{
-                   td4 = $("<td align='center'><a href='#'><input type='button' class='layui-btn layui-btn-normal' value='已批阅'/></a></td>");
-                }
-                td0.appendTo(tr);
+                var td4 = $("<td align='center' > <a href="+'${pageContext.request.contextPath}/rest/item_test_score_detail?classId='+data[i].classId+'&testId='+data[i].testId+"><button class='layui-btn layui-btn-radius'  >查看详情</button></a> </td>");
+
                 td1.appendTo(tr);
                 td2.appendTo(tr);
                 td3.appendTo(tr);
                 td4.appendTo(tr);
                 tr.appendTo(table);
             }
-
             return table;
         };
 
 
+        /**
+         * 导出统计数据
+         */
+        $('#exportbtn').click(function () {
+          var form =  $("<form>").attr({
+               "action":"/rest/pro/export_prolist",
+               "method":"post"
+           });
+            $(document.body).append(form);
+            form.submit();
+        });
+
+
     });
+
+    //查看分数详情
+    function showScoreDetail(testid) {
+        //location.href = "${pageContext.request.contextPath}/rest/test/showScoreDetail?testId="+testid;
+        location.href = "${pageContext.request.contextPath}/rest/score_detail?testId="+testid;
+    }
+
 
 </script>
 </body>

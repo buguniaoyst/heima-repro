@@ -14,4 +14,7 @@ public interface TestRecordsMapper extends Mapper<TestRecords> {
 
 	List<Map> showDetailAll(@Param("stuId") Integer stuId, @Param("testId") Integer testId);
 
+    List<TestRecords> queryTestRecordGroupByClassIdAndTestId();
+
+	List<Map> queryTestRecordsByClassIdAndTestId(@Param("classId") Integer classId, @Param("testId") Integer testId);
 }
