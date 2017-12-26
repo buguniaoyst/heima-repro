@@ -72,6 +72,7 @@
 <script type="text/javascript" src="./datas/test_nav.js"></script>
 <script src="./js/index.js"></script>
 <script>
+    //测试
     layui.use(['layer'], function() {
         var $ = layui.jquery,
             layer = layui.layer;
