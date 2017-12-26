@@ -16,7 +16,7 @@ public class PageController {
     @RequestMapping("{pageName}")
     public String toPage(@PathVariable("pageName") String pageName, HttpSession session, HttpServletRequest request) {
 
-        if("index".equals(pageName)){
+        if("index".equals(pageName) || "stu_home".equals(pageName)){
             User user = (User) session.getAttribute("loginUser");
             if(null != user && "管理员".equals(user.getUsertype())){
                 return "index";

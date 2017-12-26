@@ -61,4 +61,10 @@ public class UserService extends BaseService<User> {
         }
         return  null;
     }
+
+    public void updateTeststatusByClassId(User user) {
+        Example example = new Example(User.class);
+        example.createCriteria().andEqualTo("classid", user.getClassid());
+        this.getMapper().updateByExampleSelective(user,example);
+    }
 }

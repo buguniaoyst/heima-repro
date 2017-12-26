@@ -55,11 +55,17 @@ public class TestSourceController {
         System.out.println(classInfo);
         //根据classid和testid做幂等
         ClassInfo exitClassInfo = this.classInfoService.queryClassInfoByClassId(classInfo);
+        //根据classId将userinfo中的testId和testStatus
+        User user = new User();
+        user.setClassid(classInfo.getClassId());
+        user.setTestid(classInfo.getTestId());
+        user.setTeststatus(1);
+        userService.updateTeststatusByClassId(user);
         if (exitClassInfo == null) {
             //新增
             classInfoService.save(classInfo);
         }else{
-            //更具classId更新
+            //根据classId更新
             classInfoService.updatClassInfoByClassId(classInfo);
         }
         return "redirect:/rest/show_test_source?classId=" + classInfo.getClassId();
@@ -88,6 +94,12 @@ public class TestSourceController {
     @ResponseBody
     public Map<String,Object> showStuTest(HttpSession session){
         User user = (User) session.getAttribute("loginUser");
+
+        //判断跟这个学员关联的试卷是否已经结束
+        if(null != user && user.getTeststatus() == 0){
+            return null;
+        }
+
         //根据user中的testid查询试卷信息
         TestSource testSource = testSourceService.selectTestSourceByTestId(user);
 

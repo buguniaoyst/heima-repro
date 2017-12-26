@@ -116,7 +116,9 @@
                </div>
            </div>
            <div id="videoDiv" class="layui-form-item layui-input-inline " style="display:none">
-               <label class="layui-form-label"> <a id="showVideo" target="_blank" href="#">播放视频文件</a> </label>
+               <label class="layui-form-label">
+                   <a id="showVideo" target="_blank" href="#">播放视频文件</a>
+               </label>
                <div class="layui-input-block">
 
                </div>
@@ -178,6 +180,7 @@
                 $("#videoPath").val(data.videoPath);
                 $("#showVideo").attr("href",data.videoPath);
                 $("#videoDiv")[0].style.display = "block";
+                console.log("上传的视频地址："+data.videoPath);
             }
         }
         $("#jvForm").ajaxSubmit(options);

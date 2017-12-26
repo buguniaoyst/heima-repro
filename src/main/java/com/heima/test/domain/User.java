@@ -8,15 +8,18 @@ import javax.persistence.*;
 @Entity
 @Table(name = "userinfo")
 public class User {
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id", unique=true, nullable=false)
     private Integer id;
     private String username;
     private String password;
     private String classid;
     private String testid;
     private String usertype = "普通用户";
+    private Integer teststatus;
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id", unique=true, nullable=false)
+
+
     public Integer getId() {
         return id;
     }
@@ -58,5 +61,13 @@ public class User {
 
     public void setTestid(String testid) {
         this.testid = testid;
+    }
+
+    public Integer getTeststatus() {
+        return teststatus;
+    }
+
+    public void setTeststatus(Integer teststatus) {
+        this.teststatus = teststatus;
     }
 }

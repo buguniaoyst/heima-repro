@@ -1,4 +1,4 @@
-var navs = [{
+var navs = [/*{
 	"title": "个人中心",
 	"icon": "&#xe614;",
 	"spread": true,
@@ -7,7 +7,7 @@ var navs = [{
         "icon": "&#xe612;",
         "href": "/rest/student/user_control"
     }]
-},{
+},*/{
 	"title": "考试管理",
 	"icon": "&#xe620;",
 	"spread": false,

@@ -203,7 +203,7 @@
                 if(submitTestFlag){
                     $.post("${pageContext.request.contextPath}/rest/score/submitScoreInfo",{scoreInfos:scoreInfos,testRecord:testRescord},function (result) {
                         if(result.result){
-                            alert("批改成功");
+                            //alert("批改成功");
                             var testName = $("#stuTestName").html();
                             var testId = $("#stuTestName").attr("testId");
                             var classId =  $("#stuName").attr("classId");

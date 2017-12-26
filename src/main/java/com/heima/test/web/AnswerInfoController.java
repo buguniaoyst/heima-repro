@@ -6,6 +6,7 @@ import com.heima.test.domain.TestSource;
 import com.heima.test.domain.User;
 import com.heima.test.service.AnswerInfoService;
 import com.heima.test.service.TestSourceService;
+import com.heima.test.service.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,13 +30,23 @@ public class AnswerInfoController {
     @Autowired
     private TestSourceService testSourceService;
 
+    @Autowired
+    private UserService userService;
+
     @RequestMapping(value = "addAnswerInfo",method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> addAnswerInfo(@RequestParam(value = "answerInfo",required = false)String answerInfo, HttpSession session) {
         //获取登录用户信息
         User loginUser = (User) session.getAttribute("loginUser");
+
         Map<String, Object> result = new HashMap<>();
         if (null != loginUser ) {
+            //将用户中关联的测试关闭
+            //1.修改session中的teststatus
+            loginUser.setTeststatus(0);
+            session.setAttribute("loginUser", loginUser);
+            //修改数据库中的状态
+            userService.updateSelectiveById(loginUser);
             Boolean flag =  answerInfoService.addAnswerInfo(answerInfo,loginUser);
             result.put("result", flag);
         }else{
@@ -96,7 +107,7 @@ public class AnswerInfoController {
         //根据classId和testId 查询testRecord
 
         result.put("results", answerInfoList);
-        result.put("pagesize", 20);
+        result.put("pagesize", 100);
         return  result;
     }
 

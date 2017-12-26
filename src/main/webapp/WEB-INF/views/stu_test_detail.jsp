@@ -67,6 +67,15 @@
                 dataType: "json",
                 success: function (data) {
                     console.log(data);
+                    if(!data){
+                        $("#submitTest").attr({"disabled":"disabled"});
+                        form.render();
+                        layer.alert('目前没有测试！', {
+                            skin: 'layui-layer-molv' //样式类名
+                            ,closeBtn: 0
+                        });
+                        return;
+                    }
                     $("#stuTestName").html(data.testSource.testName);
                     var items = data.itemInfoList;
                     if(items && items.length>0) {

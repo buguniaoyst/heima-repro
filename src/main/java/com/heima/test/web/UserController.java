@@ -39,7 +39,7 @@ public class UserController {
         if(null != exitUser){
             return "redirect:/rest/login.jsp?classid="+user.getClassid()+"&registMsg=you have registed,please login on now!";
         }
-
+        user.setTeststatus(0);
         userService.save(user);
         return "redirect:/rest/login.jsp?classid="+user.getClassid();
     }
@@ -75,10 +75,6 @@ public class UserController {
                 //return new ModelAndView("redirect:/rest/stu_test_detail");
                 return new ModelAndView("redirect:/rest/stu_home");
             }
-
-
-
-
 
 
             //根据testid查询试卷
